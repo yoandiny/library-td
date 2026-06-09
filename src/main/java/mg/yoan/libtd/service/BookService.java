@@ -62,6 +62,13 @@ public class BookService {
         return bookRepository.save(book);
     }
 
+    public void delete(Long id){
+        if(!bookRepository.existsById(id)){
+            throw new EntityNotFoundException("Book not found");
+        }
+
+        bookRepository.deleteById(id);
+    }
 
 
 
