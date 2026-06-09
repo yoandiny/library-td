@@ -2,8 +2,14 @@ package mg.yoan.libtd.endpoint.rest.controller.health;
 
 import java.util.List;
 import mg.yoan.libtd.model.BookEdition;
+import mg.yoan.libtd.model.FormatLabel;
 import mg.yoan.libtd.model.dto.BookEditionRequest;
+import mg.yoan.libtd.model.dto.BookEditionSearchCriteria;
 import mg.yoan.libtd.service.BookEditionService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,6 +45,40 @@ public class BookEditionController {
       return ResponseEntity.ok(bookEditionService.getAllByBook(bookId));
     }
     return ResponseEntity.ok(bookEditionService.getAll());
+  }
+
+  @GetMapping("/search")
+  public ResponseEntity<Page<BookEdition>> searchBookEditions(
+      @RequestParam(required = false) String isbn,
+      @RequestParam(required = false) FormatLabel formatLabel,
+      @RequestParam(required = false) Double minPrice,
+      @RequestParam(required = false) Double maxPrice,
+      @RequestParam(required = false) String title,
+      @RequestParam(required = false) String genre,
+      @RequestParam(required = false) Integer minYear,
+      @RequestParam(required = false) Integer maxYear,
+      @RequestParam(required = false) String authorName,
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "20") int size,
+      @RequestParam(defaultValue = "id") String sortBy,
+      @RequestParam(defaultValue = "asc") String sortDir) {
+
+    BookEditionSearchCriteria criteria = new BookEditionSearchCriteria();
+    criteria.setIsbn(isbn);
+    criteria.setFormatLabel(formatLabel);
+    criteria.setMinPrice(minPrice);
+    criteria.setMaxPrice(maxPrice);
+    criteria.setTitle(title);
+    criteria.setGenre(genre);
+    criteria.setMinYear(minYear);
+    criteria.setMaxYear(maxYear);
+    criteria.setAuthorName(authorName);
+
+    Sort.Direction direction =
+        "desc".equalsIgnoreCase(sortDir) ? Sort.Direction.DESC : Sort.Direction.ASC;
+    Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
+
+    return ResponseEntity.ok(bookEditionService.search(criteria, pageable));
   }
 
   @GetMapping("/{id}")

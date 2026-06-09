@@ -6,9 +6,14 @@ import mg.yoan.libtd.model.Book;
 import mg.yoan.libtd.model.BookEdition;
 import mg.yoan.libtd.model.Format;
 import mg.yoan.libtd.model.dto.BookEditionRequest;
+import mg.yoan.libtd.model.dto.BookEditionSearchCriteria;
 import mg.yoan.libtd.repository.BookEditionRepository;
 import mg.yoan.libtd.repository.BookRepository;
 import mg.yoan.libtd.repository.FormatRepository;
+import mg.yoan.libtd.repository.specification.BookEditionSpecification;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -44,6 +49,11 @@ public class BookEditionService {
 
   public List<BookEdition> getAll() {
     return bookEditionRepository.findAll();
+  }
+
+  public Page<BookEdition> search(BookEditionSearchCriteria criteria, Pageable pageable) {
+    Specification<BookEdition> specification = BookEditionSpecification.fromCriteria(criteria);
+    return bookEditionRepository.findAll(specification, pageable);
   }
 
   public List<BookEdition> getAllByBook(Long bookId) {
