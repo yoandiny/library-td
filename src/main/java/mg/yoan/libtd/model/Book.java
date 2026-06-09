@@ -39,6 +39,5 @@ public class Book {
   @Column(name = "publication_year")
   private Integer publicationYear;
 
-  @Column
-  private String genre;
+  @Column private String genre;
 }
