@@ -25,30 +25,30 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BookCopy {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private String id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "book_id", nullable = false)
-    private Book book;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "book_id", nullable = false)
+  private Book book;
 
-    @Column(unique = true, length = 100)
-    private String barcode;
+  @Column(unique = true, length = 100)
+  private String barcode;
 
-    @Enumerated(EnumType.STRING)
-    @Column(length = 50)
-    private CopyCondition condition;
+  @Enumerated(EnumType.STRING)
+  @Column(length = 50)
+  private CopyCondition condition;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 50)
-    @Builder.Default
-    private CopyStatus status = CopyStatus.AVAILABLE;
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false, length = 50)
+  @Builder.Default
+  private CopyStatus status = CopyStatus.AVAILABLE;
 
-    @Column(length = 255)
-    private String location;
+  @Column(length = 255)
+  private String location;
 
-    @Column(name = "added_at", nullable = false)
-    @Builder.Default
-    private LocalDateTime addedAt = LocalDateTime.now();
+  @Column(name = "added_at", nullable = false)
+  @Builder.Default
+  private LocalDateTime addedAt = LocalDateTime.now();
 }

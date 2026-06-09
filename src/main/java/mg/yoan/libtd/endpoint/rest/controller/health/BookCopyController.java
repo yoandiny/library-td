@@ -20,41 +20,41 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/book-copies")
 public class BookCopyController {
 
-    private final BookCopyService bookCopyService;
+  private final BookCopyService bookCopyService;
 
-    public BookCopyController(BookCopyService bookCopyService) {
-        this.bookCopyService = bookCopyService;
-    }
+  public BookCopyController(BookCopyService bookCopyService) {
+    this.bookCopyService = bookCopyService;
+  }
 
-    @PostMapping
-    public ResponseEntity<BookCopy> createBookCopy(@RequestBody BookCopyRequest request) {
-        BookCopy created = bookCopyService.create(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(created);
-    }
+  @PostMapping
+  public ResponseEntity<BookCopy> createBookCopy(@RequestBody BookCopyRequest request) {
+    BookCopy created = bookCopyService.create(request);
+    return ResponseEntity.status(HttpStatus.CREATED).body(created);
+  }
 
-    @GetMapping
-    public ResponseEntity<List<BookCopy>> getAllBookCopies(
-            @RequestParam(required = false) Long bookId) {
-        if (bookId != null) {
-            return ResponseEntity.ok(bookCopyService.getAllByBook(bookId));
-        }
-        return ResponseEntity.ok(bookCopyService.getAll());
+  @GetMapping
+  public ResponseEntity<List<BookCopy>> getAllBookCopies(
+      @RequestParam(required = false) Long bookId) {
+    if (bookId != null) {
+      return ResponseEntity.ok(bookCopyService.getAllByBook(bookId));
     }
+    return ResponseEntity.ok(bookCopyService.getAll());
+  }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<BookCopy> getBookCopyById(@PathVariable String id) {
-        return ResponseEntity.ok(bookCopyService.getById(id));
-    }
+  @GetMapping("/{id}")
+  public ResponseEntity<BookCopy> getBookCopyById(@PathVariable String id) {
+    return ResponseEntity.ok(bookCopyService.getById(id));
+  }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<BookCopy> updateBookCopy(
-            @PathVariable String id, @RequestBody BookCopyRequest request) {
-        return ResponseEntity.ok(bookCopyService.update(id, request));
-    }
+  @PutMapping("/{id}")
+  public ResponseEntity<BookCopy> updateBookCopy(
+      @PathVariable String id, @RequestBody BookCopyRequest request) {
+    return ResponseEntity.ok(bookCopyService.update(id, request));
+  }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBookCopy(@PathVariable String id) {
-        bookCopyService.delete(id);
-        return ResponseEntity.noContent().build();
-    }
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> deleteBookCopy(@PathVariable String id) {
+    bookCopyService.delete(id);
+    return ResponseEntity.noContent().build();
+  }
 }

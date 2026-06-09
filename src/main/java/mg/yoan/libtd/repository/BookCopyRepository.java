@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BookCopyRepository extends JpaRepository<BookCopy, String> {
 
-    List<BookCopy> findAllByBookId(Long bookId);
+  List<BookCopy> findAllByBookId(Long bookId);
 
-    List<BookCopy> findAllByStatus(CopyStatus status);
+  List<BookCopy> findAllByStatus(CopyStatus status);
 }

@@ -13,80 +13,77 @@ import org.springframework.stereotype.Service;
 @Service
 public class BookCopyService {
 
-    private final BookCopyRepository bookCopyRepository;
-    private final BookRepository bookRepository;
+  private final BookCopyRepository bookCopyRepository;
+  private final BookRepository bookRepository;
 
-    public BookCopyService(
-            BookCopyRepository bookCopyRepository, BookRepository bookRepository) {
-        this.bookCopyRepository = bookCopyRepository;
-        this.bookRepository = bookRepository;
+  public BookCopyService(BookCopyRepository bookCopyRepository, BookRepository bookRepository) {
+    this.bookCopyRepository = bookCopyRepository;
+    this.bookRepository = bookRepository;
+  }
+
+  public BookCopy create(BookCopyRequest request) {
+    Book book =
+        bookRepository
+            .findById(request.getBookId())
+            .orElseThrow(
+                () -> new NotFoundException("Book with id " + request.getBookId() + " not found"));
+
+    BookCopy bookCopy =
+        BookCopy.builder()
+            .book(book)
+            .barcode(request.getBarcode())
+            .condition(request.getCondition())
+            .status(request.getStatus() != null ? request.getStatus() : CopyStatus.AVAILABLE)
+            .location(request.getLocation())
+            .build();
+
+    return bookCopyRepository.save(bookCopy);
+  }
+
+  public List<BookCopy> getAll() {
+    return bookCopyRepository.findAll();
+  }
+
+  public List<BookCopy> getAllByBook(Long bookId) {
+    if (!bookRepository.existsById(bookId)) {
+      throw new NotFoundException("Book with id " + bookId + " not found");
     }
+    return bookCopyRepository.findAllByBookId(bookId);
+  }
 
-    public BookCopy create(BookCopyRequest request) {
-        Book book =
-                bookRepository
-                        .findById(request.getBookId())
-                        .orElseThrow(
-                                () ->
-                                        new NotFoundException("Book with id " + request.getBookId() + " not found"));
+  public BookCopy getById(String id) {
+    return bookCopyRepository
+        .findById(id)
+        .orElseThrow(() -> new NotFoundException("BookCopy with id " + id + " not found"));
+  }
 
-        BookCopy bookCopy =
-                BookCopy.builder()
-                        .book(book)
-                        .barcode(request.getBarcode())
-                        .condition(request.getCondition())
-                        .status(request.getStatus() != null ? request.getStatus() : CopyStatus.AVAILABLE)
-                        .location(request.getLocation())
-                        .build();
+  public BookCopy update(String id, BookCopyRequest request) {
+    BookCopy bookCopy =
+        bookCopyRepository
+            .findById(id)
+            .orElseThrow(() -> new NotFoundException("BookCopy with id " + id + " not found"));
 
-        return bookCopyRepository.save(bookCopy);
+    Book book =
+        bookRepository
+            .findById(request.getBookId())
+            .orElseThrow(
+                () -> new NotFoundException("Book with id " + request.getBookId() + " not found"));
+
+    bookCopy.setBook(book);
+    bookCopy.setBarcode(request.getBarcode());
+    bookCopy.setCondition(request.getCondition());
+    if (request.getStatus() != null) {
+      bookCopy.setStatus(request.getStatus());
     }
+    bookCopy.setLocation(request.getLocation());
 
-    public List<BookCopy> getAll() {
-        return bookCopyRepository.findAll();
+    return bookCopyRepository.save(bookCopy);
+  }
+
+  public void delete(String id) {
+    if (!bookCopyRepository.existsById(id)) {
+      throw new NotFoundException("BookCopy with id " + id + " not found");
     }
-
-    public List<BookCopy> getAllByBook(Long bookId) {
-        if (!bookRepository.existsById(bookId)) {
-            throw new NotFoundException("Book with id " + bookId + " not found");
-        }
-        return bookCopyRepository.findAllByBookId(bookId);
-    }
-
-    public BookCopy getById(String id) {
-        return bookCopyRepository
-                .findById(id)
-                .orElseThrow(() -> new NotFoundException("BookCopy with id " + id + " not found"));
-    }
-
-    public BookCopy update(String id, BookCopyRequest request) {
-        BookCopy bookCopy =
-                bookCopyRepository
-                        .findById(id)
-                        .orElseThrow(() -> new NotFoundException("BookCopy with id " + id + " not found"));
-
-        Book book =
-                bookRepository
-                        .findById(request.getBookId())
-                        .orElseThrow(
-                                () ->
-                                        new NotFoundException("Book with id " + request.getBookId() + " not found"));
-
-        bookCopy.setBook(book);
-        bookCopy.setBarcode(request.getBarcode());
-        bookCopy.setCondition(request.getCondition());
-        if (request.getStatus() != null) {
-            bookCopy.setStatus(request.getStatus());
-        }
-        bookCopy.setLocation(request.getLocation());
-
-        return bookCopyRepository.save(bookCopy);
-    }
-
-    public void delete(String id) {
-        if (!bookCopyRepository.existsById(id)) {
-            throw new NotFoundException("BookCopy with id " + id + " not found");
-        }
-        bookCopyRepository.deleteById(id);
-    }
+    bookCopyRepository.deleteById(id);
+  }
 }

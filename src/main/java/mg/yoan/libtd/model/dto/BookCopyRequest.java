@@ -6,9 +6,9 @@ import mg.yoan.libtd.model.CopyStatus;
 
 @Data
 public class BookCopyRequest {
-    private Long bookId;
-    private String barcode;
-    private CopyCondition condition;
-    private CopyStatus status;
-    private String location;
+  private Long bookId;
+  private String barcode;
+  private CopyCondition condition;
+  private CopyStatus status;
+  private String location;
 }
