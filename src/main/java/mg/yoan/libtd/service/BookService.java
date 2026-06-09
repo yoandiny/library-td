@@ -1,6 +1,7 @@
 package mg.yoan.libtd.service;
 
 import jakarta.persistence.EntityNotFoundException;
+import mg.yoan.libtd.exception.NotFoundException;
 import mg.yoan.libtd.model.Author;
 import mg.yoan.libtd.model.Book;
 import mg.yoan.libtd.model.dto.BookRequest;
@@ -23,8 +24,7 @@ public class BookService {
     public Book create(BookRequest bookRequest) {
 
         Author author = authorRepository.findById(bookRequest.getAuthorId())
-                .orElseThrow(() ->
-                        new EntityNotFoundException("Author not found"));
+                .orElseThrow(() -> new NotFoundException("Author with id " + bookRequest.getAuthorId() +" not found"));
 
         Book book = Book.builder()
                 .title(bookRequest.getTitle())
@@ -43,15 +43,15 @@ public class BookService {
 
     public Book getById(Long id){
         return bookRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Book not found"));
+                .orElseThrow(() -> new NotFoundException("Book with id " + id +" not found"));
     }
 
     public Book update(Long id, BookRequest bookRequest) {
         Book book = bookRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Book not found"));
+                .orElseThrow(() -> new NotFoundException("Book with id " + id +" not found"));
 
         Author author = authorRepository.findById(bookRequest.getAuthorId())
-                .orElseThrow(() -> new EntityNotFoundException("Author not found"));
+                .orElseThrow(() -> new NotFoundException("Author with id " + bookRequest.getAuthorId() +" not found"));
 
         book.setTitle(bookRequest.getTitle());
         book.setIsbn(bookRequest.getIsbn());
@@ -64,7 +64,7 @@ public class BookService {
 
     public void delete(Long id){
         if(!bookRepository.existsById(id)){
-            throw new EntityNotFoundException("Book not found");
+            throw new NotFoundException("Book with id " + id + " not found");
         }
 
         bookRepository.deleteById(id);
