@@ -8,6 +8,8 @@ import mg.yoan.libtd.repository.AuthorRepository;
 import mg.yoan.libtd.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BookService {
     private final BookRepository bookRepository;
@@ -31,6 +33,31 @@ public class BookService {
                 .publicationYear(bookRequest.getPublishYear())
                 .genre(bookRequest.getGenre())
                 .build();
+
+        return bookRepository.save(book);
+    }
+
+    public List<Book> getAll(){
+        return bookRepository.findAll();
+    }
+
+    public Book getById(Long id){
+        return bookRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Book not found"));
+    }
+
+    public Book update(Long id, BookRequest bookRequest) {
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Book not found"));
+
+        Author author = authorRepository.findById(bookRequest.getAuthorId())
+                .orElseThrow(() -> new EntityNotFoundException("Author not found"));
+
+        book.setTitle(bookRequest.getTitle());
+        book.setIsbn(bookRequest.getIsbn());
+        book.setGenre(bookRequest.getGenre());
+        book.setAuthor(author);
+        book.setPublicationYear(bookRequest.getPublishYear());
 
         return bookRepository.save(book);
     }
