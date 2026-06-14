@@ -1,0 +1,50 @@
+package mg.yoan.libtd.endpoint.rest.controller.health;
+
+import java.util.List;
+import mg.yoan.libtd.model.Payment;
+import mg.yoan.libtd.model.dto.PaymentRequest;
+import mg.yoan.libtd.service.PaymentService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/payments")
+public class PaymentController {
+
+  private final PaymentService paymentService;
+
+  public PaymentController(PaymentService paymentService) {
+    this.paymentService = paymentService;
+  }
+
+  @PostMapping
+  public ResponseEntity<Payment> createPayment(@RequestBody PaymentRequest request) {
+    return ResponseEntity.status(HttpStatus.CREATED).body(paymentService.create(request));
+  }
+
+  @GetMapping
+  public ResponseEntity<List<Payment>> getAllPayments() {
+    return ResponseEntity.ok(paymentService.getAll());
+  }
+
+  @GetMapping("/{id}")
+  public ResponseEntity<Payment> getPaymentById(@PathVariable String id) {
+    return ResponseEntity.ok(paymentService.getById(id));
+  }
+
+  @GetMapping("/sale/{saleId}")
+  public ResponseEntity<Payment> getPaymentBySaleId(@PathVariable String saleId) {
+    return ResponseEntity.ok(paymentService.getBySaleId(saleId));
+  }
+
+  @PutMapping("/{id}/process")
+  public ResponseEntity<Payment> processPayment(@PathVariable String id) {
+    return ResponseEntity.ok(paymentService.process(id));
+  }
+
+  @PutMapping("/{id}/fail")
+  public ResponseEntity<Payment> failPayment(@PathVariable String id) {
+    return ResponseEntity.ok(paymentService.failPayment(id));
+  }
+}
