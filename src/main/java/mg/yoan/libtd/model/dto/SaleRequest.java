@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 public class SaleRequest {
-    private String customerId;
-    private List<SaleLineRequest> lines;
+  private String customerId;
+  private List<SaleLineRequest> lines;
 }

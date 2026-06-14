@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SaleLineRepository extends JpaRepository<SaleLine, String> {
-    List<SaleLine> findAllBySaleId(String saleId);
+  List<SaleLine> findAllBySaleId(String saleId);
 }

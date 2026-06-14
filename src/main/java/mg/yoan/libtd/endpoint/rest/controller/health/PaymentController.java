@@ -12,39 +12,39 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/payments")
 public class PaymentController {
 
-    private final PaymentService paymentService;
+  private final PaymentService paymentService;
 
-    public PaymentController(PaymentService paymentService) {
-        this.paymentService = paymentService;
-    }
+  public PaymentController(PaymentService paymentService) {
+    this.paymentService = paymentService;
+  }
 
-    @PostMapping
-    public ResponseEntity<Payment> createPayment(@RequestBody PaymentRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(paymentService.create(request));
-    }
+  @PostMapping
+  public ResponseEntity<Payment> createPayment(@RequestBody PaymentRequest request) {
+    return ResponseEntity.status(HttpStatus.CREATED).body(paymentService.create(request));
+  }
 
-    @GetMapping
-    public ResponseEntity<List<Payment>> getAllPayments() {
-        return ResponseEntity.ok(paymentService.getAll());
-    }
+  @GetMapping
+  public ResponseEntity<List<Payment>> getAllPayments() {
+    return ResponseEntity.ok(paymentService.getAll());
+  }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Payment> getPaymentById(@PathVariable String id) {
-        return ResponseEntity.ok(paymentService.getById(id));
-    }
+  @GetMapping("/{id}")
+  public ResponseEntity<Payment> getPaymentById(@PathVariable String id) {
+    return ResponseEntity.ok(paymentService.getById(id));
+  }
 
-    @GetMapping("/sale/{saleId}")
-    public ResponseEntity<Payment> getPaymentBySaleId(@PathVariable String saleId) {
-        return ResponseEntity.ok(paymentService.getBySaleId(saleId));
-    }
+  @GetMapping("/sale/{saleId}")
+  public ResponseEntity<Payment> getPaymentBySaleId(@PathVariable String saleId) {
+    return ResponseEntity.ok(paymentService.getBySaleId(saleId));
+  }
 
-    @PutMapping("/{id}/process")
-    public ResponseEntity<Payment> processPayment(@PathVariable String id) {
-        return ResponseEntity.ok(paymentService.process(id));
-    }
+  @PutMapping("/{id}/process")
+  public ResponseEntity<Payment> processPayment(@PathVariable String id) {
+    return ResponseEntity.ok(paymentService.process(id));
+  }
 
-    @PutMapping("/{id}/fail")
-    public ResponseEntity<Payment> failPayment(@PathVariable String id) {
-        return ResponseEntity.ok(paymentService.failPayment(id));
-    }
+  @PutMapping("/{id}/fail")
+  public ResponseEntity<Payment> failPayment(@PathVariable String id) {
+    return ResponseEntity.ok(paymentService.failPayment(id));
+  }
 }

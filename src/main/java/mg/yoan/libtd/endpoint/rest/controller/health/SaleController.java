@@ -12,38 +12,37 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/sales")
 public class SaleController {
 
-    private final SaleService saleService;
+  private final SaleService saleService;
 
-    public SaleController(SaleService saleService) {
-        this.saleService = saleService;
-    }
+  public SaleController(SaleService saleService) {
+    this.saleService = saleService;
+  }
 
-    @PostMapping
-    public ResponseEntity<Sale> createSale(@RequestBody SaleRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(saleService.create(request));
-    }
+  @PostMapping
+  public ResponseEntity<Sale> createSale(@RequestBody SaleRequest request) {
+    return ResponseEntity.status(HttpStatus.CREATED).body(saleService.create(request));
+  }
 
-    @GetMapping
-    public ResponseEntity<List<Sale>> getAllSales(
-            @RequestParam(required = false) String customerId) {
-        if (customerId != null) {
-            return ResponseEntity.ok(saleService.getByCustomer(customerId));
-        }
-        return ResponseEntity.ok(saleService.getAll());
+  @GetMapping
+  public ResponseEntity<List<Sale>> getAllSales(@RequestParam(required = false) String customerId) {
+    if (customerId != null) {
+      return ResponseEntity.ok(saleService.getByCustomer(customerId));
     }
+    return ResponseEntity.ok(saleService.getAll());
+  }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Sale> getSaleById(@PathVariable String id) {
-        return ResponseEntity.ok(saleService.getById(id));
-    }
+  @GetMapping("/{id}")
+  public ResponseEntity<Sale> getSaleById(@PathVariable String id) {
+    return ResponseEntity.ok(saleService.getById(id));
+  }
 
-    @PutMapping("/{id}/validate")
-    public ResponseEntity<Sale> validateSale(@PathVariable String id) {
-        return ResponseEntity.ok(saleService.validate(id));
-    }
+  @PutMapping("/{id}/validate")
+  public ResponseEntity<Sale> validateSale(@PathVariable String id) {
+    return ResponseEntity.ok(saleService.validate(id));
+  }
 
-    @PutMapping("/{id}/cancel")
-    public ResponseEntity<Sale> cancelSale(@PathVariable String id) {
-        return ResponseEntity.ok(saleService.cancel(id));
-    }
+  @PutMapping("/{id}/cancel")
+  public ResponseEntity<Sale> cancelSale(@PathVariable String id) {
+    return ResponseEntity.ok(saleService.cancel(id));
+  }
 }

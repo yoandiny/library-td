@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SaleRepository extends JpaRepository<Sale, String> {
-    List<Sale> findAllByCustomerId(String customerId);
+  List<Sale> findAllByCustomerId(String customerId);
 
-    List<Sale> findAllByStatus(SaleStatus status);
+  List<Sale> findAllByStatus(SaleStatus status);
 }

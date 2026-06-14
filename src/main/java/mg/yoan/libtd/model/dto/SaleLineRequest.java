@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class SaleLineRequest {
-    private String bookEditionId;
-    private Integer quantity;
+  private String bookEditionId;
+  private Integer quantity;
 }
