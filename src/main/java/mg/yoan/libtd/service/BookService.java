@@ -45,13 +45,13 @@ public class BookService {
     return bookRepository.findAll();
   }
 
-  public Book getById(Long id) {
+  public Book getById(String id) {
     return bookRepository
         .findById(id)
         .orElseThrow(() -> new NotFoundException("Book with id " + id + " not found"));
   }
 
-  public Book update(Long id, BookRequest bookRequest) {
+  public Book update(String id, BookRequest bookRequest) {
     Book book =
         bookRepository
             .findById(id)
@@ -74,7 +74,7 @@ public class BookService {
     return bookRepository.save(book);
   }
 
-  public void delete(Long id) {
+  public void delete(String id) {
     if (!bookRepository.existsById(id)) {
       throw new NotFoundException("Book with id " + id + " not found");
     }

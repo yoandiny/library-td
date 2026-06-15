@@ -45,7 +45,7 @@ public class BookServiceTest {
         author.setLastName("Boom");
 
         Book saved = Book.builder()
-                .id(10L)
+                .id("10L")
                 .title("Spring Boot")
                 .author(author)
                 .isbn("123")
@@ -64,7 +64,7 @@ public class BookServiceTest {
         //then
         assertNotNull(result);
         assertEquals("Spring Boot", result.getTitle());
-        assertEquals(10L, result.getId());
+        assertEquals("10L", result.getId());
 
         verify(authorRepository).findById(1L);
         verify(bookRepository).save(any(Book.class));
