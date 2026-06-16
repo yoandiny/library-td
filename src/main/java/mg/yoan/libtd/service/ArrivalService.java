@@ -34,7 +34,8 @@ public class ArrivalService {
 
     Arrival arrival =
         Arrival.builder()
-            .arrivedAt(request.getArrivedAt() != null ? request.getArrivedAt() : LocalDateTime.now())
+            .arrivedAt(
+                request.getArrivedAt() != null ? request.getArrivedAt() : LocalDateTime.now())
             .build();
 
     List<ArrivalLine> lines = new ArrayList<>();
@@ -74,9 +75,7 @@ public class ArrivalService {
             .orElseThrow(
                 () ->
                     new NotFoundException(
-                        "BookEdition with id "
-                            + lineRequest.getBookEditionId()
-                            + " not found"));
+                        "BookEdition with id " + lineRequest.getBookEditionId() + " not found"));
 
     return ArrivalLine.builder()
         .arrival(arrival)
