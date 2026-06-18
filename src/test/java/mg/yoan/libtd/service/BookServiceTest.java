@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.util.Optional;
+import java.util.UUID;
 import mg.yoan.libtd.model.Author;
 import mg.yoan.libtd.model.Book;
 import mg.yoan.libtd.model.dto.BookRequest;
@@ -27,21 +28,23 @@ public class BookServiceTest {
   void shouldCreateBook() {
 
     // given
+    UUID authorId01 = UUID.randomUUID();
+
     BookRequest request = new BookRequest();
     request.setTitle("Spring Boot");
     request.setIsbn("123");
     request.setPublishYear(2025);
     request.setGenre("Tech");
-    request.setAuthorId(1L);
+    request.setAuthorId(authorId01);
 
     Author author = new Author();
-    author.setId(1L);
+    author.setId(authorId01);
     author.setFirstName("Benson");
     author.setLastName("Boom");
 
     Book saved =
         Book.builder()
-            .id("10L")
+            .id(authorId01)
             .title("Spring Boot")
             .author(author)
             .isbn("123")
@@ -49,7 +52,7 @@ public class BookServiceTest {
             .publicationYear(2025)
             .build();
 
-    when(authorRepository.findById(1L)).thenReturn(Optional.of(author));
+    when(authorRepository.findById(authorId01)).thenReturn(Optional.of(author));
 
     when(bookRepository.save(any(Book.class))).thenReturn(saved);
 
@@ -59,9 +62,9 @@ public class BookServiceTest {
     // then
     assertNotNull(result);
     assertEquals("Spring Boot", result.getTitle());
-    assertEquals("10L", result.getId());
+    assertEquals(authorId01, result.getId());
 
-    verify(authorRepository).findById(1L);
+    verify(authorRepository).findById(authorId01);
     verify(bookRepository).save(any(Book.class));
   }
 }
