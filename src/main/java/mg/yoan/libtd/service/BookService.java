@@ -18,9 +18,9 @@ public class BookService {
   private final BookEditionRepository bookEditionRepository;
 
   public BookService(
-          BookRepository bookRepository,
-          AuthorRepository authorRepository,
-          BookEditionRepository bookEditionRepository) {
+      BookRepository bookRepository,
+      AuthorRepository authorRepository,
+      BookEditionRepository bookEditionRepository) {
     this.bookRepository = bookRepository;
     this.authorRepository = authorRepository;
     this.bookEditionRepository = bookEditionRepository;
@@ -29,21 +29,21 @@ public class BookService {
   public Book create(BookRequest bookRequest) {
 
     Author author =
-            authorRepository
-                    .findById(bookRequest.getAuthorId())
-                    .orElseThrow(
-                            () ->
-                                    new NotFoundException(
-                                            "Author with id " + bookRequest.getAuthorId() + " not found"));
+        authorRepository
+            .findById(bookRequest.getAuthorId())
+            .orElseThrow(
+                () ->
+                    new NotFoundException(
+                        "Author with id " + bookRequest.getAuthorId() + " not found"));
 
     Book book =
-            Book.builder()
-                    .title(bookRequest.getTitle())
-                    .author(author)
-                    .isbn(bookRequest.getIsbn())
-                    .publicationYear(bookRequest.getPublishYear())
-                    .genre(bookRequest.getGenre())
-                    .build();
+        Book.builder()
+            .title(bookRequest.getTitle())
+            .author(author)
+            .isbn(bookRequest.getIsbn())
+            .publicationYear(bookRequest.getPublishYear())
+            .genre(bookRequest.getGenre())
+            .build();
 
     return bookRepository.save(book);
   }
@@ -54,23 +54,23 @@ public class BookService {
 
   public Book getById(Long id) {
     return bookRepository
-            .findById(id)
-            .orElseThrow(() -> new NotFoundException("Book with id " + id + " not found"));
+        .findById(id)
+        .orElseThrow(() -> new NotFoundException("Book with id " + id + " not found"));
   }
 
   public Book update(Long id, BookRequest bookRequest) {
     Book book =
-            bookRepository
-                    .findById(id)
-                    .orElseThrow(() -> new NotFoundException("Book with id " + id + " not found"));
+        bookRepository
+            .findById(id)
+            .orElseThrow(() -> new NotFoundException("Book with id " + id + " not found"));
 
     Author author =
-            authorRepository
-                    .findById(bookRequest.getAuthorId())
-                    .orElseThrow(
-                            () ->
-                                    new NotFoundException(
-                                            "Author with id " + bookRequest.getAuthorId() + " not found"));
+        authorRepository
+            .findById(bookRequest.getAuthorId())
+            .orElseThrow(
+                () ->
+                    new NotFoundException(
+                        "Author with id " + bookRequest.getAuthorId() + " not found"));
 
     book.setTitle(bookRequest.getTitle());
     book.setIsbn(bookRequest.getIsbn());
@@ -95,14 +95,14 @@ public class BookService {
     }
 
     BookEdition edition =
-            bookEditionRepository
-                    .findById(editionId)
-                    .orElseThrow(
-                            () -> new NotFoundException("BookEdition with id " + editionId + " not found"));
+        bookEditionRepository
+            .findById(editionId)
+            .orElseThrow(
+                () -> new NotFoundException("BookEdition with id " + editionId + " not found"));
 
     if (!edition.getBook().getId().equals(bookId)) {
       throw new NotFoundException(
-              "BookEdition with id " + editionId + " does not belong to Book with id " + bookId);
+          "BookEdition with id " + editionId + " does not belong to Book with id " + bookId);
     }
 
     return edition;

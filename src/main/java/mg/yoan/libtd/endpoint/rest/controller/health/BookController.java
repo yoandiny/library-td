@@ -40,7 +40,7 @@ public class BookController {
 
   @PutMapping("/{id}")
   public ResponseEntity<Book> updateBook(
-          @PathVariable Long id, @RequestBody BookRequest bookRequest) {
+      @PathVariable Long id, @RequestBody BookRequest bookRequest) {
     return ResponseEntity.ok(bookService.update(id, bookRequest));
   }
 
@@ -58,7 +58,7 @@ public class BookController {
 
   @GetMapping("/{id}/editions/{editionId}")
   public ResponseEntity<BookEdition> getEditionOfBook(
-          @PathVariable Long id, @PathVariable String editionId) {
+      @PathVariable Long id, @PathVariable String editionId) {
     return ResponseEntity.ok(bookService.getEditionOfBook(id, editionId));
   }
 }
