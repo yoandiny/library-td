@@ -2,7 +2,6 @@ package mg.yoan.libtd.endpoint.rest.controller.health;
 
 import java.util.List;
 import java.util.UUID;
-
 import mg.yoan.libtd.model.Arrival;
 import mg.yoan.libtd.model.dto.ArrivalRequest;
 import mg.yoan.libtd.service.ArrivalService;

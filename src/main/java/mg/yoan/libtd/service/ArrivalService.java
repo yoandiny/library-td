@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
 import mg.yoan.libtd.exception.NotFoundException;
 import mg.yoan.libtd.model.Arrival;
 import mg.yoan.libtd.model.ArrivalLine;

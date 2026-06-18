@@ -1,9 +1,8 @@
 package mg.yoan.libtd.model.dto;
 
+import java.util.UUID;
 import lombok.Data;
 import mg.yoan.libtd.model.PaymentMethod;
-
-import java.util.UUID;
 
 @Data
 public class PaymentRequest {

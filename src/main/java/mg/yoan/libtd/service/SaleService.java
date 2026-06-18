@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
-
 import mg.yoan.libtd.exception.NotFoundException;
 import mg.yoan.libtd.model.*;
 import mg.yoan.libtd.model.dto.SaleLineRequest;

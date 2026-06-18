@@ -1,8 +1,7 @@
 package mg.yoan.libtd.model.dto;
 
-import lombok.Data;
-
 import java.util.UUID;
+import lombok.Data;
 
 @Data
 public class SaleLineRequest {
