@@ -1,6 +1,7 @@
 package mg.yoan.libtd.endpoint.rest.controller.health;
 
 import java.util.List;
+import java.util.UUID;
 import mg.yoan.libtd.model.BookEdition;
 import mg.yoan.libtd.model.FormatLabel;
 import mg.yoan.libtd.model.dto.BookEditionRequest;
@@ -40,7 +41,7 @@ public class BookEditionController {
 
   @GetMapping
   public ResponseEntity<List<BookEdition>> getAllBookEditions(
-      @RequestParam(required = false) Long bookId) {
+      @RequestParam(required = false) UUID bookId) {
     if (bookId != null) {
       return ResponseEntity.ok(bookEditionService.getAllByBook(bookId));
     }
@@ -82,18 +83,18 @@ public class BookEditionController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<BookEdition> getBookEditionById(@PathVariable String id) {
+  public ResponseEntity<BookEdition> getBookEditionById(@PathVariable UUID id) {
     return ResponseEntity.ok(bookEditionService.getById(id));
   }
 
   @PutMapping("/{id}")
   public ResponseEntity<BookEdition> updateBookEdition(
-      @PathVariable String id, @RequestBody BookEditionRequest request) {
+      @PathVariable UUID id, @RequestBody BookEditionRequest request) {
     return ResponseEntity.ok(bookEditionService.update(id, request));
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deleteBookEdition(@PathVariable String id) {
+  public ResponseEntity<Void> deleteBookEdition(@PathVariable UUID id) {
     bookEditionService.delete(id);
     return ResponseEntity.noContent().build();
   }

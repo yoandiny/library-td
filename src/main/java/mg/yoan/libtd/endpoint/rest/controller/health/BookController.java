@@ -1,6 +1,7 @@
 package mg.yoan.libtd.endpoint.rest.controller.health;
 
 import java.util.List;
+import java.util.UUID;
 import mg.yoan.libtd.model.Book;
 import mg.yoan.libtd.model.dto.BookRequest;
 import mg.yoan.libtd.service.BookService;
@@ -30,18 +31,18 @@ public class BookController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<Book> getBookById(@PathVariable String id) {
+  public ResponseEntity<Book> getBookById(@PathVariable UUID id) {
     return ResponseEntity.ok(bookService.getById(id));
   }
 
   @PutMapping("/{id}")
   public ResponseEntity<Book> updateBook(
-      @PathVariable String id, @RequestBody BookRequest bookRequest) {
+      @PathVariable UUID id, @RequestBody BookRequest bookRequest) {
     return ResponseEntity.ok(bookService.update(id, bookRequest));
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Book> deleteBook(@PathVariable String id) {
+  public ResponseEntity<Book> deleteBook(@PathVariable UUID id) {
     bookService.delete(id);
 
     return ResponseEntity.noContent().build();
