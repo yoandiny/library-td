@@ -23,7 +23,7 @@ import lombok.ToString;
 public class Author {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.UUID)
   private String id;
 
   @Column(name = "last_name", nullable = false)
