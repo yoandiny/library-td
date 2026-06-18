@@ -94,7 +94,7 @@ public class BookEditionService {
         .orElseThrow(() -> new NotFoundException("Book with id " + bookId + " not found"));
   }
 
-  private Format findFormat(String formatId) {
+  private Format findFormat(UUID formatId) {
     if (formatId == null) {
       return null;
     }

@@ -1,6 +1,8 @@
 package mg.yoan.libtd.endpoint.rest.controller.health;
 
 import java.util.List;
+import java.util.UUID;
+
 import mg.yoan.libtd.model.Arrival;
 import mg.yoan.libtd.model.dto.ArrivalRequest;
 import mg.yoan.libtd.service.ArrivalService;
@@ -36,12 +38,12 @@ public class ArrivalController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<Arrival> getArrivalById(@PathVariable String id) {
+  public ResponseEntity<Arrival> getArrivalById(@PathVariable UUID id) {
     return ResponseEntity.ok(arrivalService.getById(id));
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deleteArrival(@PathVariable String id) {
+  public ResponseEntity<Void> deleteArrival(@PathVariable UUID id) {
     arrivalService.delete(id);
     return ResponseEntity.noContent().build();
   }

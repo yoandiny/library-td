@@ -3,6 +3,8 @@ package mg.yoan.libtd.model;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
+
 import lombok.*;
 
 @Entity
@@ -15,7 +17,7 @@ public class Payment {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
-  private String id;
+  private UUID id;
 
   @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "id_sale", nullable = false, unique = true)

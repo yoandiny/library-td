@@ -2,6 +2,8 @@ package mg.yoan.libtd.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.UUID;
+
 import lombok.*;
 
 @Entity
@@ -14,7 +16,7 @@ public class Customer {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
-  private String id;
+  private UUID id;
 
   @Column(name = "full_name", nullable = false)
   private String fullName;

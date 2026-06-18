@@ -1,6 +1,8 @@
 package mg.yoan.libtd.endpoint.rest.controller.health;
 
 import java.util.List;
+import java.util.UUID;
+
 import mg.yoan.libtd.model.Format;
 import mg.yoan.libtd.model.dto.FormatRequest;
 import mg.yoan.libtd.service.FormatService;
@@ -37,18 +39,18 @@ public class FormatController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<Format> getFormatById(@PathVariable String id) {
+  public ResponseEntity<Format> getFormatById(@PathVariable UUID id) {
     return ResponseEntity.ok(formatService.getById(id));
   }
 
   @PutMapping("/{id}")
   public ResponseEntity<Format> updateFormat(
-      @PathVariable String id, @RequestBody FormatRequest request) {
+      @PathVariable UUID id, @RequestBody FormatRequest request) {
     return ResponseEntity.ok(formatService.update(id, request));
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deleteFormat(@PathVariable String id) {
+  public ResponseEntity<Void> deleteFormat(@PathVariable UUID id) {
     formatService.delete(id);
     return ResponseEntity.noContent().build();
   }

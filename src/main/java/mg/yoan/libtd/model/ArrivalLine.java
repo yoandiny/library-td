@@ -15,6 +15,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "arrival_line")
 @Data
@@ -25,7 +27,7 @@ public class ArrivalLine {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
-  private String id;
+  private UUID id;
 
   @ToString.Exclude
   @ManyToOne(fetch = FetchType.LAZY)

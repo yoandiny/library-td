@@ -7,6 +7,6 @@ import java.util.UUID;
 public class BookEditionRequest {
   private String isbn;
   private UUID bookId;
-  private String formatId;
+  private UUID formatId;
   private Double price;
 }

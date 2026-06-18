@@ -13,6 +13,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "format")
 @Data
@@ -23,7 +25,7 @@ public class Format {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
-  private String id;
+  private UUID id;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "format_label", nullable = false, length = 50)
