@@ -2,7 +2,9 @@ package mg.yoan.libtd.endpoint.rest.controller.health;
 
 import java.util.List;
 import mg.yoan.libtd.model.Book;
+import mg.yoan.libtd.model.BookEdition;
 import mg.yoan.libtd.model.dto.BookRequest;
+import mg.yoan.libtd.service.BookEditionService;
 import mg.yoan.libtd.service.BookService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,9 +14,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/books")
 public class BookController {
   private final BookService bookService;
+  private final BookEditionService bookEditionService;
 
-  public BookController(BookService bookService) {
+  public BookController(BookService bookService, BookEditionService bookEditionService) {
     this.bookService = bookService;
+    this.bookEditionService = bookEditionService;
   }
 
   @PostMapping
@@ -36,7 +40,7 @@ public class BookController {
 
   @PutMapping("/{id}")
   public ResponseEntity<Book> updateBook(
-      @PathVariable Long id, @RequestBody BookRequest bookRequest) {
+          @PathVariable Long id, @RequestBody BookRequest bookRequest) {
     return ResponseEntity.ok(bookService.update(id, bookRequest));
   }
 
@@ -45,5 +49,16 @@ public class BookController {
     bookService.delete(id);
 
     return ResponseEntity.noContent().build();
+  }
+
+  @GetMapping("/{id}/editions")
+  public ResponseEntity<List<BookEdition>> getEditionsByBook(@PathVariable Long id) {
+    return ResponseEntity.ok(bookEditionService.getAllByBook(id));
+  }
+
+  @GetMapping("/{id}/editions/{editionId}")
+  public ResponseEntity<BookEdition> getEditionOfBook(
+          @PathVariable Long id, @PathVariable String editionId) {
+    return ResponseEntity.ok(bookService.getEditionOfBook(id, editionId));
   }
 }
