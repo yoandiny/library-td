@@ -1,6 +1,7 @@
 package mg.yoan.libtd.service;
 
 import java.util.List;
+import java.util.UUID;
 import mg.yoan.libtd.exception.NotFoundException;
 import mg.yoan.libtd.model.Book;
 import mg.yoan.libtd.model.BookEdition;
@@ -56,20 +57,20 @@ public class BookEditionService {
     return bookEditionRepository.findAll(specification, pageable);
   }
 
-  public List<BookEdition> getAllByBook(Long bookId) {
+  public List<BookEdition> getAllByBook(UUID bookId) {
     if (!bookRepository.existsById(bookId)) {
       throw new NotFoundException("Book with id " + bookId + " not found");
     }
     return bookEditionRepository.findAllByBookId(bookId);
   }
 
-  public BookEdition getById(String id) {
+  public BookEdition getById(UUID id) {
     return bookEditionRepository
         .findById(id)
         .orElseThrow(() -> new NotFoundException("BookEdition with id " + id + " not found"));
   }
 
-  public BookEdition update(String id, BookEditionRequest request) {
+  public BookEdition update(UUID id, BookEditionRequest request) {
     BookEdition bookEdition = getById(id);
 
     bookEdition.setIsbn(request.getIsbn());
@@ -80,20 +81,20 @@ public class BookEditionService {
     return bookEditionRepository.save(bookEdition);
   }
 
-  public void delete(String id) {
+  public void delete(UUID id) {
     if (!bookEditionRepository.existsById(id)) {
       throw new NotFoundException("BookEdition with id " + id + " not found");
     }
     bookEditionRepository.deleteById(id);
   }
 
-  private Book findBook(Long bookId) {
+  private Book findBook(UUID bookId) {
     return bookRepository
         .findById(bookId)
         .orElseThrow(() -> new NotFoundException("Book with id " + bookId + " not found"));
   }
 
-  private Format findFormat(String formatId) {
+  private Format findFormat(UUID formatId) {
     if (formatId == null) {
       return null;
     }

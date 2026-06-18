@@ -1,6 +1,7 @@
 package mg.yoan.libtd.service;
 
 import java.util.List;
+import java.util.UUID;
 import mg.yoan.libtd.exception.NotFoundException;
 import mg.yoan.libtd.model.*;
 import mg.yoan.libtd.model.dto.PaymentRequest;
@@ -51,19 +52,19 @@ public class PaymentService {
   }
 
   @Transactional
-  public Payment process(String paymentId) {
+  public Payment process(UUID paymentId) {
     Payment payment = getById(paymentId);
     payment.process();
     return paymentRepository.save(payment);
   }
 
-  public Payment getById(String id) {
+  public Payment getById(UUID id) {
     return paymentRepository
         .findById(id)
         .orElseThrow(() -> new NotFoundException("Payment with id " + id + " not found"));
   }
 
-  public Payment getBySaleId(String saleId) {
+  public Payment getBySaleId(UUID saleId) {
     return paymentRepository
         .findBySaleId(saleId)
         .orElseThrow(() -> new NotFoundException("No payment found for sale " + saleId));
@@ -74,7 +75,7 @@ public class PaymentService {
   }
 
   @Transactional
-  public Payment failPayment(String paymentId) {
+  public Payment failPayment(UUID paymentId) {
     Payment payment = getById(paymentId);
     if (!PaymentStatus.PENDING.equals(payment.getStatus())) {
       throw new IllegalStateException("Only PENDING payments can be marked as failed");

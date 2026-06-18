@@ -3,6 +3,7 @@ package mg.yoan.libtd.service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import mg.yoan.libtd.exception.NotFoundException;
 import mg.yoan.libtd.model.Arrival;
 import mg.yoan.libtd.model.ArrivalLine;
@@ -51,13 +52,13 @@ public class ArrivalService {
     return arrivalRepository.findAll();
   }
 
-  public Arrival getById(String id) {
+  public Arrival getById(UUID id) {
     return arrivalRepository
         .findById(id)
         .orElseThrow(() -> new NotFoundException("Arrival with id " + id + " not found"));
   }
 
-  public void delete(String id) {
+  public void delete(UUID id) {
     if (!arrivalRepository.existsById(id)) {
       throw new NotFoundException("Arrival with id " + id + " not found");
     }

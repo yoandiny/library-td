@@ -3,6 +3,7 @@ package mg.yoan.libtd.service;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 import mg.yoan.libtd.exception.NotFoundException;
 import mg.yoan.libtd.model.*;
 import mg.yoan.libtd.model.dto.SaleLineRequest;
@@ -70,13 +71,13 @@ public class SaleService {
     return saleRepository.findAll();
   }
 
-  public Sale getById(String id) {
+  public Sale getById(UUID id) {
     return saleRepository
         .findById(id)
         .orElseThrow(() -> new NotFoundException("Sale with id " + id + " not found"));
   }
 
-  public List<Sale> getByCustomer(String customerId) {
+  public List<Sale> getByCustomer(UUID customerId) {
     if (!customerRepository.existsById(customerId)) {
       throw new NotFoundException("Customer with id " + customerId + " not found");
     }
@@ -84,14 +85,14 @@ public class SaleService {
   }
 
   @Transactional
-  public Sale validate(String id) {
+  public Sale validate(UUID id) {
     Sale sale = getById(id);
     sale.validate();
     return saleRepository.save(sale);
   }
 
   @Transactional
-  public Sale cancel(String id) {
+  public Sale cancel(UUID id) {
     Sale sale = getById(id);
     sale.cancel();
     return saleRepository.save(sale);

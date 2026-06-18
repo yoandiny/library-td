@@ -1,11 +1,12 @@
 package mg.yoan.libtd.model.dto;
 
+import java.util.UUID;
 import lombok.Data;
 
 @Data
 public class BookRequest {
   private String title;
-  private Long authorId;
+  private UUID authorId;
   private String isbn;
   private Integer publishYear;
   private String genre;

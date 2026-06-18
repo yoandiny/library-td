@@ -1,11 +1,12 @@
 package mg.yoan.libtd.model.dto;
 
+import java.util.UUID;
 import lombok.Data;
 
 @Data
 public class BookEditionRequest {
   private String isbn;
-  private Long bookId;
-  private String formatId;
+  private UUID bookId;
+  private UUID formatId;
   private Double price;
 }

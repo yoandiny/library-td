@@ -1,6 +1,7 @@
 package mg.yoan.libtd.service;
 
 import java.util.List;
+import java.util.UUID;
 import mg.yoan.libtd.exception.NotFoundException;
 import mg.yoan.libtd.model.Author;
 import mg.yoan.libtd.model.Book;
@@ -52,13 +53,13 @@ public class BookService {
     return bookRepository.findAll();
   }
 
-  public Book getById(Long id) {
+  public Book getById(UUID id) {
     return bookRepository
         .findById(id)
         .orElseThrow(() -> new NotFoundException("Book with id " + id + " not found"));
   }
 
-  public Book update(Long id, BookRequest bookRequest) {
+  public Book update(UUID id, BookRequest bookRequest) {
     Book book =
         bookRepository
             .findById(id)
@@ -81,7 +82,7 @@ public class BookService {
     return bookRepository.save(book);
   }
 
-  public void delete(Long id) {
+  public void delete(UUID id) {
     if (!bookRepository.existsById(id)) {
       throw new NotFoundException("Book with id " + id + " not found");
     }

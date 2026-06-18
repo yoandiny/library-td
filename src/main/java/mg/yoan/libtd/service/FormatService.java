@@ -1,6 +1,7 @@
 package mg.yoan.libtd.service;
 
 import java.util.List;
+import java.util.UUID;
 import mg.yoan.libtd.exception.NotFoundException;
 import mg.yoan.libtd.model.Format;
 import mg.yoan.libtd.model.dto.FormatRequest;
@@ -25,19 +26,19 @@ public class FormatService {
     return formatRepository.findAll();
   }
 
-  public Format getById(String id) {
+  public Format getById(UUID id) {
     return formatRepository
         .findById(id)
         .orElseThrow(() -> new NotFoundException("Format with id " + id + " not found"));
   }
 
-  public Format update(String id, FormatRequest request) {
+  public Format update(UUID id, FormatRequest request) {
     Format format = getById(id);
     format.setFormatLabel(request.getFormatLabel());
     return formatRepository.save(format);
   }
 
-  public void delete(String id) {
+  public void delete(UUID id) {
     if (!formatRepository.existsById(id)) {
       throw new NotFoundException("Format with id " + id + " not found");
     }
