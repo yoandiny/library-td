@@ -4,8 +4,10 @@ import java.util.List;
 import mg.yoan.libtd.exception.NotFoundException;
 import mg.yoan.libtd.model.Author;
 import mg.yoan.libtd.model.Book;
+import mg.yoan.libtd.model.BookEdition;
 import mg.yoan.libtd.model.dto.BookRequest;
 import mg.yoan.libtd.repository.AuthorRepository;
+import mg.yoan.libtd.repository.BookEditionRepository;
 import mg.yoan.libtd.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +15,15 @@ import org.springframework.stereotype.Service;
 public class BookService {
   private final BookRepository bookRepository;
   private final AuthorRepository authorRepository;
+  private final BookEditionRepository bookEditionRepository;
 
-  public BookService(BookRepository bookRepository, AuthorRepository authorRepository) {
+  public BookService(
+      BookRepository bookRepository,
+      AuthorRepository authorRepository,
+      BookEditionRepository bookEditionRepository) {
     this.bookRepository = bookRepository;
     this.authorRepository = authorRepository;
+    this.bookEditionRepository = bookEditionRepository;
   }
 
   public Book create(BookRequest bookRequest) {
@@ -80,5 +87,24 @@ public class BookService {
     }
 
     bookRepository.deleteById(id);
+  }
+
+  public BookEdition getEditionOfBook(Long bookId, String editionId) {
+    if (!bookRepository.existsById(bookId)) {
+      throw new NotFoundException("Book with id " + bookId + " not found");
+    }
+
+    BookEdition edition =
+        bookEditionRepository
+            .findById(editionId)
+            .orElseThrow(
+                () -> new NotFoundException("BookEdition with id " + editionId + " not found"));
+
+    if (!edition.getBook().getId().equals(bookId)) {
+      throw new NotFoundException(
+          "BookEdition with id " + editionId + " does not belong to Book with id " + bookId);
+    }
+
+    return edition;
   }
 }
