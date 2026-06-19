@@ -53,13 +53,13 @@ public class BookController {
   }
 
   @GetMapping("/{id}/editions")
-  public ResponseEntity<List<BookEdition>> getEditionsByBook(@PathVariable Long id) {
+  public ResponseEntity<List<BookEdition>> getEditionsByBook(@PathVariable UUID id) {
     return ResponseEntity.ok(bookEditionService.getAllByBook(id));
   }
 
   @GetMapping("/{id}/editions/{editionId}")
   public ResponseEntity<BookEdition> getEditionOfBook(
-      @PathVariable Long id, @PathVariable String editionId) {
+          @PathVariable UUID id, @PathVariable UUID editionId) {
     return ResponseEntity.ok(bookService.getEditionOfBook(id, editionId));
   }
 }

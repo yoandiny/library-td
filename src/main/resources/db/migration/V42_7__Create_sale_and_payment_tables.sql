@@ -1,9 +1,9 @@
 -- SALE table
 CREATE TABLE IF NOT EXISTS sale
 (
-    id           VARCHAR DEFAULT gen_random_uuid()
+    id           UUID DEFAULT gen_random_uuid()
         CONSTRAINT sale_pk PRIMARY KEY,
-    id_customer  VARCHAR NOT NULL
+    id_customer  UUID NOT NULL
         CONSTRAINT sale_customer_fk REFERENCES customer (id),
     sale_date    TIMESTAMP NOT NULL,
     total_amount NUMERIC(15, 2) NOT NULL DEFAULT 0,
@@ -14,11 +14,11 @@ CREATE TABLE IF NOT EXISTS sale
 -- SALE_LINE table
 CREATE TABLE IF NOT EXISTS sale_line
 (
-    id              VARCHAR DEFAULT gen_random_uuid()
+    id              UUID DEFAULT gen_random_uuid()
         CONSTRAINT sale_line_pk PRIMARY KEY,
-    id_sale         VARCHAR NOT NULL
+    id_sale         UUID NOT NULL
         CONSTRAINT sale_line_sale_fk REFERENCES sale (id),
-    id_book_edition VARCHAR NOT NULL
+    id_book_edition UUID NOT NULL
         CONSTRAINT sale_line_book_edition_fk REFERENCES book_edition (id),
     unit_price      NUMERIC(15, 2) NOT NULL,
     quantity        INTEGER NOT NULL CONSTRAINT sale_line_quantity_positive CHECK (quantity > 0)
@@ -27,9 +27,9 @@ CREATE TABLE IF NOT EXISTS sale_line
 -- PAYMENT table
 CREATE TABLE IF NOT EXISTS payment
 (
-    id      VARCHAR DEFAULT gen_random_uuid()
+    id      UUID DEFAULT gen_random_uuid()
         CONSTRAINT payment_pk PRIMARY KEY,
-    id_sale VARCHAR NOT NULL UNIQUE
+    id_sale UUID NOT NULL UNIQUE
         CONSTRAINT payment_sale_fk REFERENCES sale (id),
     amount  NUMERIC(15, 2) NOT NULL,
     method  VARCHAR(20) NOT NULL
