@@ -90,7 +90,7 @@ public class BookService {
     bookRepository.deleteById(id);
   }
 
-  public BookEdition getEditionOfBook(Long bookId, String editionId) {
+  public BookEdition getEditionOfBook(UUID bookId, UUID editionId) {
     if (!bookRepository.existsById(bookId)) {
       throw new NotFoundException("Book with id " + bookId + " not found");
     }

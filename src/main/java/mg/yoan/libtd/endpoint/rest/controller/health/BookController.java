@@ -59,7 +59,7 @@ public class BookController {
 
   @GetMapping("/{id}/editions/{editionId}")
   public ResponseEntity<BookEdition> getEditionOfBook(
-      @PathVariable Long id, @PathVariable String editionId) {
+          @PathVariable UUID id, @PathVariable UUID editionId) {
     return ResponseEntity.ok(bookService.getEditionOfBook(id, editionId));
   }
 }
