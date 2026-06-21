@@ -9,7 +9,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SaleLineRepository extends JpaRepository<SaleLine, UUID> {
-  @Query("""
+  @Query(
+      """
     SELECT COALESCE(SUM(sl.quantity), 0) FROM SaleLine sl
     WHERE sl.bookEdition.id = :bookEditionId
     AND sl.sale.status <> mg.yoan.libtd.model.SaleStatus.CANCELLED

@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class StockService {
 
-    private final ArrivalLineRepository arrivalLineRepository;
-    private final SaleLineRepository saleLineRepository;
+  private final ArrivalLineRepository arrivalLineRepository;
+  private final SaleLineRepository saleLineRepository;
 
-    public int getStock(UUID bookEditionId) {
-        int arrived = arrivalLineRepository.sumQuantityByBookEditionId(bookEditionId);
-        int sold    = saleLineRepository.sumQuantityByBookEditionId(bookEditionId);
-        return arrived - sold;
-    }
+  public int getStock(UUID bookEditionId) {
+    int arrived = arrivalLineRepository.sumQuantityByBookEditionId(bookEditionId);
+    int sold = saleLineRepository.sumQuantityByBookEditionId(bookEditionId);
+    return arrived - sold;
+  }
 }

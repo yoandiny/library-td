@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class StockController {
 
-    private final StockService stockService;
+  private final StockService stockService;
 
-    @GetMapping("/book-edition/{id}")
-    public ResponseEntity<Integer> getStock(@PathVariable UUID id) {
-        return ResponseEntity.ok(stockService.getStock(id));
-    }
+  @GetMapping("/book-edition/{id}")
+  public ResponseEntity<Integer> getStock(@PathVariable UUID id) {
+    return ResponseEntity.ok(stockService.getStock(id));
+  }
 }
