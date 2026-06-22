@@ -1,0 +1,20 @@
+package mg.yoan.libtd.endpoint.rest.controller.health;
+
+import java.util.UUID;
+import lombok.RequiredArgsConstructor;
+import mg.yoan.libtd.service.StockService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/stock")
+@RequiredArgsConstructor
+public class StockController {
+
+  private final StockService stockService;
+
+  @GetMapping("/book-edition/{id}")
+  public ResponseEntity<Integer> getStock(@PathVariable UUID id) {
+    return ResponseEntity.ok(stockService.getStock(id));
+  }
+}
