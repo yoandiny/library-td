@@ -2,8 +2,8 @@ package mg.yoan.libtd.service;
 
 import java.util.List;
 import java.util.UUID;
+import lombok.AllArgsConstructor;
 import mg.yoan.libtd.exception.NotFoundException;
-import mg.yoan.libtd.model.Author;
 import mg.yoan.libtd.model.Book;
 import mg.yoan.libtd.model.BookEdition;
 import mg.yoan.libtd.model.dto.BookRequest;
@@ -13,31 +13,21 @@ import mg.yoan.libtd.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class BookService {
   private final BookRepository bookRepository;
   private final AuthorRepository authorRepository;
   private final BookEditionRepository bookEditionRepository;
 
-  public BookService(
-      BookRepository bookRepository,
-      AuthorRepository authorRepository,
-      BookEditionRepository bookEditionRepository) {
-    this.bookRepository = bookRepository;
-    this.authorRepository = authorRepository;
-    this.bookEditionRepository = bookEditionRepository;
-  }
-
   public Book create(BookRequest bookRequest) {
-
-    Author author =
+    var author =
         authorRepository
             .findById(bookRequest.getAuthorId())
             .orElseThrow(
                 () ->
                     new NotFoundException(
                         "Author with id " + bookRequest.getAuthorId() + " not found"));
-
-    Book book =
+    var book =
         Book.builder()
             .title(bookRequest.getTitle())
             .author(author)
@@ -60,12 +50,12 @@ public class BookService {
   }
 
   public Book update(UUID id, BookRequest bookRequest) {
-    Book book =
+    var book =
         bookRepository
             .findById(id)
             .orElseThrow(() -> new NotFoundException("Book with id " + id + " not found"));
 
-    Author author =
+    var author =
         authorRepository
             .findById(bookRequest.getAuthorId())
             .orElseThrow(
@@ -86,7 +76,6 @@ public class BookService {
     if (!bookRepository.existsById(id)) {
       throw new NotFoundException("Book with id " + id + " not found");
     }
-
     bookRepository.deleteById(id);
   }
 
@@ -95,7 +84,7 @@ public class BookService {
       throw new NotFoundException("Book with id " + bookId + " not found");
     }
 
-    BookEdition edition =
+    var edition =
         bookEditionRepository
             .findById(editionId)
             .orElseThrow(

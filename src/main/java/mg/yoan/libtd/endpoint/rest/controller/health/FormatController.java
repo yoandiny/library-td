@@ -2,6 +2,7 @@ package mg.yoan.libtd.endpoint.rest.controller.health;
 
 import java.util.List;
 import java.util.UUID;
+import lombok.AllArgsConstructor;
 import mg.yoan.libtd.model.Format;
 import mg.yoan.libtd.model.dto.FormatRequest;
 import mg.yoan.libtd.service.FormatService;
@@ -18,13 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/formats")
+@AllArgsConstructor
 public class FormatController {
-
   private final FormatService formatService;
-
-  public FormatController(FormatService formatService) {
-    this.formatService = formatService;
-  }
 
   @PostMapping
   public ResponseEntity<Format> createFormat(@RequestBody FormatRequest request) {

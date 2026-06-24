@@ -2,6 +2,7 @@ package mg.yoan.libtd.endpoint.rest.controller.health;
 
 import java.util.List;
 import java.util.UUID;
+import lombok.AllArgsConstructor;
 import mg.yoan.libtd.model.Sale;
 import mg.yoan.libtd.model.dto.SaleRequest;
 import mg.yoan.libtd.service.SaleService;
@@ -11,13 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/sales")
+@AllArgsConstructor
 public class SaleController {
-
   private final SaleService saleService;
-
-  public SaleController(SaleService saleService) {
-    this.saleService = saleService;
-  }
 
   @PostMapping
   public ResponseEntity<Sale> createSale(@RequestBody SaleRequest request) {

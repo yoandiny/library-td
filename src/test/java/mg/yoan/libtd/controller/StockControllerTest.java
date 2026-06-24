@@ -26,7 +26,7 @@ class StockControllerTest {
     when(stockService.getStock(id)).thenReturn(7);
 
     mockMvc
-        .perform(get("/stock/book-edition/{id}", id))
+        .perform(get("/stock/book-edition/{id}/stock", id))
         .andExpect(status().isOk())
         .andExpect(content().string("7"));
   }
@@ -37,7 +37,7 @@ class StockControllerTest {
     when(stockService.getStock(id)).thenReturn(0);
 
     mockMvc
-        .perform(get("/stock/book-edition/{id}", id))
+        .perform(get("/stock/book-edition/{id}/stock", id))
         .andExpect(status().isOk())
         .andExpect(content().string("0"));
   }

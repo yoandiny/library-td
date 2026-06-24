@@ -2,6 +2,7 @@ package mg.yoan.libtd.service;
 
 import java.util.List;
 import java.util.UUID;
+import lombok.AllArgsConstructor;
 import mg.yoan.libtd.exception.NotFoundException;
 import mg.yoan.libtd.model.*;
 import mg.yoan.libtd.model.dto.PaymentRequest;
@@ -11,19 +12,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@AllArgsConstructor
 public class PaymentService {
-
   private final PaymentRepository paymentRepository;
   private final SaleRepository saleRepository;
 
-  public PaymentService(PaymentRepository paymentRepository, SaleRepository saleRepository) {
-    this.paymentRepository = paymentRepository;
-    this.saleRepository = saleRepository;
-  }
-
   @Transactional
   public Payment create(PaymentRequest request) {
-    Sale sale =
+    var sale =
         saleRepository
             .findById(request.getSaleId())
             .orElseThrow(
@@ -53,7 +49,7 @@ public class PaymentService {
 
   @Transactional
   public Payment process(UUID paymentId) {
-    Payment payment = getById(paymentId);
+    var payment = getById(paymentId);
     payment.process();
     return paymentRepository.save(payment);
   }

@@ -8,8 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -31,14 +30,13 @@ public class Arrival {
   private UUID id;
 
   @Column(name = "arrived_at", nullable = false)
-  private LocalDateTime arrivedAt;
+  private Instant arrivedAt;
 
   @ToString.Exclude
-  @Builder.Default
   @OneToMany(
       mappedBy = "arrival",
       cascade = CascadeType.ALL,
       orphanRemoval = true,
       fetch = jakarta.persistence.FetchType.LAZY)
-  private List<ArrivalLine> lines = new ArrayList<>();
+  private List<ArrivalLine> lines;
 }

@@ -2,6 +2,7 @@ package mg.yoan.libtd.endpoint.rest.controller.health;
 
 import java.util.List;
 import java.util.UUID;
+import lombok.AllArgsConstructor;
 import mg.yoan.libtd.model.Payment;
 import mg.yoan.libtd.model.dto.PaymentRequest;
 import mg.yoan.libtd.service.PaymentService;
@@ -11,13 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/payments")
+@AllArgsConstructor
 public class PaymentController {
-
   private final PaymentService paymentService;
-
-  public PaymentController(PaymentService paymentService) {
-    this.paymentService = paymentService;
-  }
 
   @PostMapping
   public ResponseEntity<Payment> createPayment(@RequestBody PaymentRequest request) {

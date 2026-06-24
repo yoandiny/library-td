@@ -25,6 +25,7 @@ public class SaleLine {
   @JoinColumn(name = "id_book_edition", nullable = false)
   private BookEdition bookEdition;
 
+  // TODO: price history should be added later on instead
   @Column(name = "unit_price", nullable = false)
   private BigDecimal unitPrice;
 
