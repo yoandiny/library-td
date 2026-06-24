@@ -2,6 +2,8 @@ package mg.yoan.libtd.service;
 
 import java.util.List;
 import java.util.UUID;
+
+import lombok.AllArgsConstructor;
 import mg.yoan.libtd.exception.NotFoundException;
 import mg.yoan.libtd.model.Format;
 import mg.yoan.libtd.model.dto.FormatRequest;
@@ -9,13 +11,9 @@ import mg.yoan.libtd.repository.FormatRepository;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class FormatService {
-
   private final FormatRepository formatRepository;
-
-  public FormatService(FormatRepository formatRepository) {
-    this.formatRepository = formatRepository;
-  }
 
   public Format create(FormatRequest request) {
     Format format = Format.builder().formatLabel(request.getFormatLabel()).build();

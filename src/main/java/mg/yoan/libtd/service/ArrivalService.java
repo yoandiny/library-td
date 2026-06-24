@@ -1,9 +1,12 @@
 package mg.yoan.libtd.service;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import lombok.AllArgsConstructor;
 import mg.yoan.libtd.exception.NotFoundException;
 import mg.yoan.libtd.model.Arrival;
 import mg.yoan.libtd.model.ArrivalLine;
@@ -16,16 +19,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@AllArgsConstructor
 public class ArrivalService {
-
   private final ArrivalRepository arrivalRepository;
   private final BookEditionRepository bookEditionRepository;
-
-  public ArrivalService(
-      ArrivalRepository arrivalRepository, BookEditionRepository bookEditionRepository) {
-    this.arrivalRepository = arrivalRepository;
-    this.bookEditionRepository = bookEditionRepository;
-  }
 
   @Transactional
   public Arrival create(ArrivalRequest request) {
@@ -33,13 +30,13 @@ public class ArrivalService {
       throw new IllegalArgumentException("An arrival must contain at least one line");
     }
 
-    Arrival arrival =
+    var arrival =
         Arrival.builder()
             .arrivedAt(
-                request.getArrivedAt() != null ? request.getArrivedAt() : LocalDateTime.now())
+                request.getArrivedAt() != null ? request.getArrivedAt() : Instant.now())
             .build();
 
-    List<ArrivalLine> lines = new ArrayList<>();
+    var lines = new ArrayList<ArrivalLine>();
     for (ArrivalLineRequest lineRequest : request.getLines()) {
       lines.add(buildLine(arrival, lineRequest));
     }
@@ -70,7 +67,7 @@ public class ArrivalService {
       throw new IllegalArgumentException("Arrival line quantity must be greater than 0");
     }
 
-    BookEdition bookEdition =
+    var bookEdition =
         bookEditionRepository
             .findById(lineRequest.getBookEditionId())
             .orElseThrow(

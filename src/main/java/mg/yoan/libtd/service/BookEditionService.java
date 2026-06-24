@@ -53,8 +53,9 @@ public class BookEditionService {
   }
 
   public Page<BookEdition> search(BookEditionSearchCriteria criteria, Pageable pageable) {
-    Specification<BookEdition> specification = BookEditionSpecification.fromCriteria(criteria);
-    return bookEditionRepository.findAll(specification, pageable);
+    throw new UnsupportedOperationException("TODO: still need to verify this one line per line");
+    //Specification<BookEdition> specification = BookEditionSpecification.fromCriteria(criteria);
+    // return bookEditionRepository.findAll(specification, pageable);
   }
 
   public List<BookEdition> getAllByBook(UUID bookId) {

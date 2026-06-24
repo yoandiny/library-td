@@ -2,6 +2,8 @@ package mg.yoan.libtd.endpoint.rest.controller.health;
 
 import java.util.List;
 import java.util.UUID;
+
+import lombok.AllArgsConstructor;
 import mg.yoan.libtd.model.BookEdition;
 import mg.yoan.libtd.model.FormatLabel;
 import mg.yoan.libtd.model.dto.BookEditionRequest;
@@ -25,13 +27,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/book-editions")
+@AllArgsConstructor
 public class BookEditionController {
-
   private final BookEditionService bookEditionService;
-
-  public BookEditionController(BookEditionService bookEditionService) {
-    this.bookEditionService = bookEditionService;
-  }
 
   @PostMapping
   public ResponseEntity<BookEdition> createBookEdition(@RequestBody BookEditionRequest request) {

@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+
+import lombok.AllArgsConstructor;
 import mg.yoan.libtd.exception.NotFoundException;
 import mg.yoan.libtd.model.*;
 import mg.yoan.libtd.model.dto.SaleLineRequest;
@@ -13,23 +15,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@AllArgsConstructor
 public class SaleService {
-
   private final SaleRepository saleRepository;
   private final SaleLineRepository saleLineRepository;
   private final CustomerRepository customerRepository;
   private final BookEditionRepository bookEditionRepository;
-
-  public SaleService(
-      SaleRepository saleRepository,
-      SaleLineRepository saleLineRepository,
-      CustomerRepository customerRepository,
-      BookEditionRepository bookEditionRepository) {
-    this.saleRepository = saleRepository;
-    this.saleLineRepository = saleLineRepository;
-    this.customerRepository = customerRepository;
-    this.bookEditionRepository = bookEditionRepository;
-  }
 
   @Transactional
   public Sale create(SaleRequest request) {
@@ -40,8 +31,7 @@ public class SaleService {
                 () ->
                     new NotFoundException(
                         "Customer with id " + request.getCustomerId() + " not found"));
-
-    Sale sale =
+    var sale =
         Sale.builder()
             .customer(customer)
             .saleDate(LocalDateTime.now())
@@ -49,11 +39,9 @@ public class SaleService {
             .totalAmount(BigDecimal.ZERO)
             .build();
 
-    Sale savedSale = saleRepository.save(sale);
-
-    List<SaleLine> lines =
+    var savedSale = saleRepository.save(sale);
+    var lines =
         request.getLines().stream().map(l -> buildSaleLine(savedSale, l)).toList();
-
     saleLineRepository.saveAll(lines);
 
     BigDecimal total =
@@ -93,7 +81,7 @@ public class SaleService {
 
   @Transactional
   public Sale cancel(UUID id) {
-    Sale sale = getById(id);
+    var sale = getById(id);
     sale.cancel();
     return saleRepository.save(sale);
   }

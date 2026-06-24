@@ -2,6 +2,8 @@ package mg.yoan.libtd.endpoint.rest.controller.health;
 
 import java.util.List;
 import java.util.UUID;
+
+import lombok.AllArgsConstructor;
 import mg.yoan.libtd.model.Book;
 import mg.yoan.libtd.model.BookEdition;
 import mg.yoan.libtd.model.dto.BookRequest;
@@ -13,20 +15,15 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/books")
+@AllArgsConstructor
 public class BookController {
   private final BookService bookService;
   private final BookEditionService bookEditionService;
 
-  public BookController(BookService bookService, BookEditionService bookEditionService) {
-    this.bookService = bookService;
-    this.bookEditionService = bookEditionService;
-  }
-
   @PostMapping
   public ResponseEntity<Book> addBook(@RequestBody BookRequest bookRequest) {
-    Book book = bookService.create(bookRequest);
-
-    return ResponseEntity.status(HttpStatus.CREATED).body(book);
+    var created = bookService.create(bookRequest);
+    return ResponseEntity.status(HttpStatus.CREATED).body(created);
   }
 
   @GetMapping
@@ -48,7 +45,6 @@ public class BookController {
   @DeleteMapping("/{id}")
   public ResponseEntity<Book> deleteBook(@PathVariable UUID id) {
     bookService.delete(id);
-
     return ResponseEntity.noContent().build();
   }
 

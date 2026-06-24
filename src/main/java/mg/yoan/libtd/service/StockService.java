@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class StockService {
-
   private final ArrivalLineRepository arrivalLineRepository;
   private final SaleLineRepository saleLineRepository;
 

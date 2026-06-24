@@ -2,6 +2,8 @@ package mg.yoan.libtd.endpoint.rest.controller.health;
 
 import java.util.List;
 import java.util.UUID;
+
+import lombok.AllArgsConstructor;
 import mg.yoan.libtd.model.Arrival;
 import mg.yoan.libtd.model.dto.ArrivalRequest;
 import mg.yoan.libtd.service.ArrivalService;
@@ -17,17 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/arrivals")
+@AllArgsConstructor
 public class ArrivalController {
-
   private final ArrivalService arrivalService;
-
-  public ArrivalController(ArrivalService arrivalService) {
-    this.arrivalService = arrivalService;
-  }
 
   @PostMapping
   public ResponseEntity<Arrival> createArrival(@RequestBody ArrivalRequest request) {
-    Arrival created = arrivalService.create(request);
+    var created = arrivalService.create(request);
     return ResponseEntity.status(HttpStatus.CREATED).body(created);
   }
 
