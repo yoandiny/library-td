@@ -2,8 +2,6 @@ package mg.yoan.libtd.endpoint.rest.controller.health;
 
 import lombok.AllArgsConstructor;
 import mg.yoan.libtd.PojaGenerated;
-import mg.yoan.libtd.repository.DummyRepository;
-import mg.yoan.libtd.repository.DummyUuidRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

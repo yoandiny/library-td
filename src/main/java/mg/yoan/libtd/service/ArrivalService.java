@@ -1,16 +1,13 @@
 package mg.yoan.libtd.service;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
 import lombok.AllArgsConstructor;
 import mg.yoan.libtd.exception.NotFoundException;
 import mg.yoan.libtd.model.Arrival;
 import mg.yoan.libtd.model.ArrivalLine;
-import mg.yoan.libtd.model.BookEdition;
 import mg.yoan.libtd.model.dto.ArrivalLineRequest;
 import mg.yoan.libtd.model.dto.ArrivalRequest;
 import mg.yoan.libtd.repository.ArrivalRepository;
@@ -32,8 +29,7 @@ public class ArrivalService {
 
     var arrival =
         Arrival.builder()
-            .arrivedAt(
-                request.getArrivedAt() != null ? request.getArrivedAt() : Instant.now())
+            .arrivedAt(request.getArrivedAt() != null ? request.getArrivedAt() : Instant.now())
             .build();
 
     var lines = new ArrayList<ArrivalLine>();

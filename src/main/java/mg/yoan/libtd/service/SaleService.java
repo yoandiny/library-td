@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
-
 import lombok.AllArgsConstructor;
 import mg.yoan.libtd.exception.NotFoundException;
 import mg.yoan.libtd.model.*;
@@ -40,8 +39,7 @@ public class SaleService {
             .build();
 
     var savedSale = saleRepository.save(sale);
-    var lines =
-        request.getLines().stream().map(l -> buildSaleLine(savedSale, l)).toList();
+    var lines = request.getLines().stream().map(l -> buildSaleLine(savedSale, l)).toList();
     saleLineRepository.saveAll(lines);
 
     BigDecimal total =

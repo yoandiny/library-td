@@ -1,7 +1,6 @@
 package mg.yoan.libtd.model.dto;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Data;
 

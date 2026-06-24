@@ -2,7 +2,6 @@ package mg.yoan.libtd.endpoint.rest.controller.health;
 
 import java.util.List;
 import java.util.UUID;
-
 import lombok.AllArgsConstructor;
 import mg.yoan.libtd.model.BookEdition;
 import mg.yoan.libtd.model.FormatLabel;

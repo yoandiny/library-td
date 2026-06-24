@@ -3,7 +3,6 @@ package mg.yoan.libtd.repository.specification;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Predicate;
 import java.util.ArrayList;
-import java.util.List;
 import mg.yoan.libtd.model.Author;
 import mg.yoan.libtd.model.Book;
 import mg.yoan.libtd.model.BookEdition;
